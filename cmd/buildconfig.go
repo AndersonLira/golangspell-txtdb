@@ -51,6 +51,20 @@ golangspell golangspell-txtdb-hello [name]
 `,
 				ValidArgs: []string{"name"},
 			},
+		"txtdbdomain": &domain.Command{
+	Name:             "txtdbdomain",
+	ShortDescription: "The txtdbdomain [TODO: PUT HERE THE NEW COMMAND FEATURE]",
+	LongDescription: `The txtdbdomain [TODO: PUT HERE THE NEW COMMAND FEATURE EXTENDED DESCRIPTION]
+Args:
+[TODO: PUT HERE THE NEW COMMAND ARGS DESCRIPTION]
+
+Syntax: 
+golangspell [TODO: PUT HERE THE NEW COMMAND SYNTAX]
+
+Examples:
+[TODO: PUT HERE THE NEW COMMAND EXAMPLES IF NEEDED]`,
+ValidArgs: []string{"DomainEntity"},
+			},
 		},
 	}
 }
