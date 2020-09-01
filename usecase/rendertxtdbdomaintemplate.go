@@ -11,7 +11,7 @@ func RendertxtdbdomainTemplate(args []string) error {
 	spell := appcontext.Current.Get(appcontext.Spell).(tooldomain.Spell)
 	renderer := domain.GetRenderer()
 	globalVariables := map[string]interface{}{
-		// "[YOUR_COMMAND_ARG_0]": args[0],
+		"DomainEntity": args[0],
 		// "[YOUR_COMMAND_ARG_1]": args[1],
 	}
 
