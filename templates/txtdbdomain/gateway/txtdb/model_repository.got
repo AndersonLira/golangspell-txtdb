@@ -1,0 +1,9 @@
+package txtdb
+
+import (
+    "{{.ModuleName}}/domain"
+)
+
+type T struct {
+    
+}

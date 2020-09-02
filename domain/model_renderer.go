@@ -5,6 +5,7 @@ import (
 
 	"github.com/golangspell/golangspell/domain"
 	"github.com/andersonlira/golangspell-txtdb/appcontext"
+	toolconfig "github.com/golangspell/golangspell/config"
 	tooldomain "github.com/golangspell/golangspell/domain"
 )
 
@@ -29,7 +30,46 @@ type Renderer interface {
 	RenderTemplate(spell tooldomain.Spell, commandName string, globalVariables map[string]interface{}, specificVariables map[string]map[string]interface{}) error
 }
 
+type GenericRenderer struct {
+	origin Renderer	
+}
+
+//RenderFile renders a template file
+func (r GenericRenderer) RenderFile(sourcePath string, info os.FileInfo) error{
+	return r.origin.RenderFile(sourcePath,info)
+}
+
+//RenderPath renders an object (file os directory) in the templates directory
+func (r GenericRenderer) RenderPath(sourcePath string, info os.FileInfo, err error) error {
+	return r.origin.RenderPath(sourcePath,info,err)
+}
+
+//BackupExistingCode make a copy of the changed file
+func (r GenericRenderer) BackupExistingCode(sourcePath string) error {
+	return r.origin.BackupExistingCode(sourcePath)
+}
+
+//RenderString processing the provided template source file, using the provided variables
+func (r GenericRenderer) RenderString(spell domain.Spell, commandName string, stringTemplateFileName string, variables map[string]interface{}) (string, error) {
+	return r.origin.RenderString(spell,commandName,stringTemplateFileName,variables)
+}
+
+//RenderTemplate renders all templates in the template directory providing the respective variables
+func (r GenericRenderer) RenderTemplate(spell tooldomain.Spell, commandName string, globalVariables map[string]interface{}, specificVariables map[string]map[string]interface{}) error {
+	currentPath, err := os.Getwd()
+	if err == nil && globalVariables != nil {
+		globalVariables["ModuleName"]  = toolconfig.GetModuleName(currentPath)
+	}
+	return r.origin.RenderTemplate(spell,commandName,globalVariables,specificVariables)
+}
+
+
+
 //GetRenderer returns the current component registered to provide the code rendering features
 func GetRenderer() Renderer {
-	return appcontext.Current.Get(appcontext.Renderer).(Renderer)
+	origin := appcontext.Current.Get(appcontext.Renderer)
+
+	renderer := GenericRenderer{}
+	renderer.origin = origin.(Renderer)
+	return renderer
 }
