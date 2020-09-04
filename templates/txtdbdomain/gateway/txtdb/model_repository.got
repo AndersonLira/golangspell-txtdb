@@ -1,6 +1,7 @@
 package txtdb
 
 import (
+<<<<<<< HEAD
     "fmt"
 
     "{{.ModuleName}}/domain"
@@ -13,4 +14,11 @@ func getItems() []domain.{{.DomainEntity}} {
 	listTxt, _ := io.ReadFile(fileName)
 	json.Unmarshal([]byte(listTxt), &list)
 	return items
+=======
+    "{{.ModuleName}}/domain"
+)
+
+type T struct {
+    
+>>>>>>> d48923dcfcccac0b35e325bd4f02536f0928b295
 }
