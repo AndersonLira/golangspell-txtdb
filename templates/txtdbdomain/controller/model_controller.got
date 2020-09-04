@@ -1,0 +1,15 @@
+package controller
+
+import (
+
+    "{{.ModuleName}}/gateway/txtdb"
+)
+
+
+//Get{{.DomainEntity}}List return all objects 
+func Get{{.DomainEntity}}List(c echo.Context) error {
+
+    list := txtdb.Get{{.DomainEntity}}List()
+
+	return c.JSON(http.StatusOK, list)
+}

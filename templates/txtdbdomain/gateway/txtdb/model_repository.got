@@ -1,16 +1,17 @@
 package txtdb
 
 import (
+	"encoding/json"
     "fmt"
 
     "{{.ModuleName}}/domain"
 )
 
 
-func getItems() []domain.{{.DomainEntity}} {
-	list := []{{.DomainEntity}}{}
+func Get{{.DomainEntity}}List() []domain.{{.DomainEntity}} {
+	list := []domain.{{.DomainEntity}}{}
     fileName := fmt.Sprintf("bd/%ss.json", "{{.DomainEntity}}");
 	listTxt, _ := io.ReadFile(fileName)
 	json.Unmarshal([]byte(listTxt), &list)
-	return items
+	return list
 }
