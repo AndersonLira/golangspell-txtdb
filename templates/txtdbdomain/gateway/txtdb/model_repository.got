@@ -1,9 +1,16 @@
 package txtdb
 
 import (
+    "fmt"
+
     "{{.ModuleName}}/domain"
 )
 
-type T struct {
-    
+
+func getItems() []domain.{{.DomainEntity}} {
+	list := []{{.DomainEntity}}{}
+    fileName := fmt.Sprintf("bd/%ss.json", "{{.DomainEntity}}");
+	listTxt, _ := io.ReadFile(fileName)
+	json.Unmarshal([]byte(listTxt), &list)
+	return items
 }
