@@ -3,16 +3,35 @@ package txtdb
 import (
 	"encoding/json"
     "fmt"
+	"log"
 
     "{{.ModuleName}}/domain"
 	"github.com/andersonlira/goutils/io"
+	"github.com/andersonlira/goutils/str"
 )
 
-
+//Get{{.DomainEntity}}List return all items 
 func Get{{.DomainEntity}}List() []domain.{{.DomainEntity}} {
 	list := []domain.{{.DomainEntity}}{}
     fileName := fmt.Sprintf("bd/%ss.json", "{{.DomainEntity}}");
 	listTxt, _ := io.ReadFile(fileName)
 	json.Unmarshal([]byte(listTxt), &list)
 	return list
+}
+
+func Save{{.DomainEntity}}(it domain.{{.DomainEntity}}) domain.{{.DomainEntity}} {
+	list := Get{{.DomainEntity}}List()
+	it.ID = str.NewUUID()
+	items = append(items, it)
+	write{{.DomainEntity}}(items)
+	return it
+}
+
+func write{{.DomainEntity}}(list []domain.{{.DomainEntity}}) {
+	b, err := json.Marshal(list)
+	if err != nil {
+		log.Println("Error while writiong file items")
+		return
+	}
+	io.WriteFile(fmt.Sprintf("bd/%ss.json", "{{.DomainEntity}}"), string(b))
 }

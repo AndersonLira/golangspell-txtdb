@@ -4,6 +4,7 @@ import (
     "net/http"
 
     "{{.ModuleName}}/gateway/txtdb"
+    "{{.ModuleName}}/domain"
 	"github.com/labstack/echo/v4"
 
 )
@@ -15,4 +16,11 @@ func Get{{.DomainEntity}}List(c echo.Context) error {
     list := txtdb.Get{{.DomainEntity}}List()
 
 	return c.JSON(http.StatusOK, list)
+}
+
+func Save{{.DomainEntity}}(c echo.Context) error {
+    it := new(domain.{{.DomainEntity}})
+    c.Bind(it)
+    it = txtdb.Save{{.DomainEntity}}(it)
+    return c.JSON(http.StatusCreated, it)
 }
