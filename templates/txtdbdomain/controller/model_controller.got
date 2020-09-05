@@ -19,8 +19,16 @@ func Get{{.DomainEntity}}List(c echo.Context) error {
 }
 
 func Save{{.DomainEntity}}(c echo.Context) error {
-    it := new(domain.{{.DomainEntity}})
-    c.Bind(it)
+    it := domain.{{.DomainEntity}}{}
+    c.Bind(&it)
     it = txtdb.Save{{.DomainEntity}}(it)
+    return c.JSON(http.StatusCreated, it)
+}
+
+func Update{{.DomainEntity}}(c echo.Context) error {
+    ID := c.Param("id")
+    it := domain.{{.DomainEntity}}{}
+    c.Bind(&it)
+    it = txtdb.Update{{.DomainEntity}}(ID,it)
     return c.JSON(http.StatusCreated, it)
 }

@@ -22,9 +22,21 @@ func Get{{.DomainEntity}}List() []domain.{{.DomainEntity}} {
 func Save{{.DomainEntity}}(it domain.{{.DomainEntity}}) domain.{{.DomainEntity}} {
 	list := Get{{.DomainEntity}}List()
 	it.ID = str.NewUUID()
-	items = append(items, it)
-	write{{.DomainEntity}}(items)
+	list = append(list, it)
+	write{{.DomainEntity}}(list)
 	return it
+}
+
+func Update{{.DomainEntity}}(ID string, it domain.{{.DomainEntity}}) domain.{{.DomainEntity}}{
+	list := Get{{.DomainEntity}}List()
+	for idx, _ := range list {
+		if(list[idx].ID == ID){
+			list[idx] = it
+			list[idx].ID = ID
+			write{{.DomainEntity}}(list)
+			return 
+		}
+	}
 }
 
 func write{{.DomainEntity}}(list []domain.{{.DomainEntity}}) {
