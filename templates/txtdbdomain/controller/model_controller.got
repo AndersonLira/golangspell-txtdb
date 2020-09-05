@@ -30,5 +30,11 @@ func Update{{.DomainEntity}}(c echo.Context) error {
     it := domain.{{.DomainEntity}}{}
     c.Bind(&it)
     it = txtdb.Update{{.DomainEntity}}(ID,it)
-    return c.JSON(http.StatusCreated, it)
+    return c.JSON(http.StatusOK, it)
+}
+
+func Delete{{.DomainEntity}}(c echo.Context) error {
+    ID := c.Param("id")
+    result := txtdb.Delete{{.DomainEntity}}(ID)
+    return c.JSON(http.StatusOK, result)
 }

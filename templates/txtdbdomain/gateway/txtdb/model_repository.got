@@ -19,6 +19,7 @@ func Get{{.DomainEntity}}List() []domain.{{.DomainEntity}} {
 	return list
 }
 
+//Save{{.DomainEntity}} saves a {{.DomainEntity}} object
 func Save{{.DomainEntity}}(it domain.{{.DomainEntity}}) domain.{{.DomainEntity}} {
 	list := Get{{.DomainEntity}}List()
 	it.ID = str.NewUUID()
@@ -27,6 +28,7 @@ func Save{{.DomainEntity}}(it domain.{{.DomainEntity}}) domain.{{.DomainEntity}}
 	return it
 }
 
+//Update{{.DomainEntity}}( updates a {{.DomainEntity}} object
 func Update{{.DomainEntity}}(ID string, it domain.{{.DomainEntity}}) domain.{{.DomainEntity}}{
 	list := Get{{.DomainEntity}}List()
 	for idx, _ := range list {
@@ -34,9 +36,23 @@ func Update{{.DomainEntity}}(ID string, it domain.{{.DomainEntity}}) domain.{{.D
 			list[idx] = it
 			list[idx].ID = ID
 			write{{.DomainEntity}}(list)
-			return 
+			return list[idx]
 		}
 	}
+	return list[idx]
+}
+
+//Delete{{.DomainEntity}} delete object by giving ID
+func Delete{{.DomainEntity}}(ID string) bool {
+	list := Get{{.DomainEntity}}List()
+	for idx, _ := range list {
+		if(list[idx].ID == ID){
+			list = append(list[:idx], list[idx+1:]...)
+			write{{.DomainEntity}}(list)
+			return true
+		}
+	}
+	return false
 }
 
 func write{{.DomainEntity}}(list []domain.{{.DomainEntity}}) {
