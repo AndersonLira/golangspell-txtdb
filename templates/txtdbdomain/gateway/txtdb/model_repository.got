@@ -39,7 +39,7 @@ func Update{{.DomainEntity}}(ID string, it domain.{{.DomainEntity}}) domain.{{.D
 			return list[idx]
 		}
 	}
-	return list[idx]
+	return it
 }
 
 //Delete{{.DomainEntity}} delete object by giving ID
