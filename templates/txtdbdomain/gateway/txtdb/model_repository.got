@@ -28,7 +28,7 @@ func Get{{.DomainEntity}}ByID(ID string) domain.{{.DomainEntity}}, error {
 			return list[idx],nil
 		}
 	}
-	return domain.{{DomainEntity}}{}, errors.New("NOT_FOUND")
+	return domain.{{.DomainEntity}}{}, errors.New("NOT_FOUND")
 }
 
 
