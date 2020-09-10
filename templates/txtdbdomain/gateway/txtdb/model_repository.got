@@ -2,6 +2,7 @@ package txtdb
 
 import (
 	"encoding/json"
+	"errors"
     "fmt"
 	"log"
 
@@ -18,6 +19,19 @@ func Get{{.DomainEntity}}List() []domain.{{.DomainEntity}} {
 	json.Unmarshal([]byte(listTxt), &list)
 	return list
 }
+
+//Get{{.DomainEntity}}ByID return all items 
+func Get{{.DomainEntity}}ByID(ID string) domain.{{.DomainEntity}}, error {
+	list := Get{{.DomainEntity}}List()
+	for idx, _ := range list {
+		if(list[idx].ID == ID){
+			return list[idx],nil
+		}
+	}
+	return domain.{{DomainEntity}}{}, errors.New("NOT_FOUND")
+}
+
+
 
 //Save{{.DomainEntity}} saves a {{.DomainEntity}} object
 func Save{{.DomainEntity}}(it domain.{{.DomainEntity}}) domain.{{.DomainEntity}} {

@@ -18,6 +18,15 @@ func Get{{.DomainEntity}}List(c echo.Context) error {
 	return c.JSON(http.StatusOK, list)
 }
 
+func Get{{.DomainEntity}}ByID(c echo.Context) error {
+    ID := c.Param("id")
+    it, err := txtdb.Get{{.DomainEntity}}ByID(ID)
+    if err != nil {
+        return c.JSON(http.StatusNotFound,it)
+    }
+    return c.JSON(http.StatusOK, it)
+}
+
 func Save{{.DomainEntity}}(c echo.Context) error {
     it := domain.{{.DomainEntity}}{}
     c.Bind(&it)

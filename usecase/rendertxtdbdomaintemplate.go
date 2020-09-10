@@ -5,6 +5,8 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/andersonlira/goutils/recode"
+	"github.com/andersonlira/goutils/io"
 	"github.com/andersonlira/golangspell-txtdb/appcontext"
 	"github.com/andersonlira/golangspell-txtdb/domain"
 	tooldomain "github.com/golangspell/golangspell/domain"
@@ -38,5 +40,13 @@ func renameFile(domainEntity string) error {
 	destinationPath := fmt.Sprintf("%s%smodel_%s.go", directory, toolconfig.PlatformSeparator, strcase.ToSnake(domainEntity))
 	
 	return os.Rename(sourcePath, destinationPath)
+}
+func addRoutes(domainEntity string ) {
+	coder, err := recode.MakeCoder("./controller/router.go")
+	if err != nil {
+		return
+	}
+	coder.AddAfterLine("func MapRoutes(e *echo.Echo)","g.GET(","\tg.GET(\"/health\", CheckHealth)")
+	io.WriteFile("./controller/router.go",coder.NewCodeContent())
 }
 
