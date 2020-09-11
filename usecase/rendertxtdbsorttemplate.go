@@ -26,7 +26,7 @@ func RendertxtdbsortTemplate(args []string) error {
 	line3 := "\t})"
 	coder.AddAfterLine(fmt.Sprintf("func Get%sList() []domain.%s",domainEntity,domainEntity),"return list",line1,line2,line3)
 
-	if strings.Contains(coder.NewCodeContent(),`"sort"`) {
+	if !strings.Contains(coder.NewCodeContent(),`"sort"`) {
 		coder.AddAfterLine("import (",")","\t\"sort\"")
 	}
 
