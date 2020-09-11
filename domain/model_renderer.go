@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"strings"
 	"os"
 
 	"github.com/golangspell/golangspell/domain"
@@ -58,7 +59,7 @@ func (r GenericRenderer) RenderString(spell domain.Spell, commandName string, st
 func (r GenericRenderer) RenderTemplate(spell tooldomain.Spell, commandName string, globalVariables map[string]interface{}, specificVariables map[string]map[string]interface{}) error {
 	currentPath, err := os.Getwd()
 	if err == nil && globalVariables != nil {
-		globalVariables["ModuleName"]  = toolconfig.GetModuleName(currentPath)
+		globalVariables["ModuleName"]  = strings.ReplaceAll(toolconfig.GetModuleName(currentPath),"\r","") //prevent Windows break line bug
 	}
 	return r.origin.RenderTemplate(spell,commandName,globalVariables,specificVariables)
 }

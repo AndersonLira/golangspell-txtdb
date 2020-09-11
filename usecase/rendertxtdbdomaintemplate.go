@@ -41,6 +41,7 @@ func renameFile(domainEntity string) error {
 	
 	return os.Rename(sourcePath, destinationPath)
 }
+
 func addRoutes(domainEntity string ) {
 	coder, err := recode.MakeCoder("./controller/router.go")
 	if err != nil {
