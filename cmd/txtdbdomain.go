@@ -13,18 +13,18 @@ func init() {
 
 func runtxtdbdomain(cmd *cobra.Command, args []string) {
 	// Example on how to deal when the expected arguments were not provided
-	// if len(args) != 2 {
-	// 	fmt.Println(`The command txtdbdomain requires n arguments
-	// 	Args:
-	// 	[PUT HERE THE NEW COMMAND ARGS DESCRIPTION]
+	if len(args) != 1 {
+		fmt.Println(`The command txtdbdomain requires 1 argument
+		Args:
+		DomainEntity: the domain that will be created
 		
-	// 	Syntax: 
-	// 	golangspell [PUT HERE THE NEW COMMAND SYNTAX]
+		Syntax: 
+		golangspell txtdbdomain DomainEntity
 		
-	// 	Examples:
-	// 	[PUT HERE THE NEW COMMAND EXAMPLES IF NEEDED]`)
-	// 	return
-	// }
+		Examples:
+		golagnspell txtdbdomain Group`)
+		return
+	}
 
 	//Here your template, hosted on the folder "templates" is rendered 
 	err := usecase.RendertxtdbdomainTemplate(args)
