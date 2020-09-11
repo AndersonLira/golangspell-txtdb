@@ -36,21 +36,6 @@ Syntax:
 golangspell build-config
 `,
 			},
-			"golangspell-txtdb-hello": &domain.Command{
-				Name:             "golangspell-txtdb-hello",
-				ShortDescription: "The golangspell-txtdb-hello says Hello! using your new Golangspell base structure",
-				LongDescription: `The golangspell-txtdb-hello says Hello! using your new Golangspell base structure
-The Architectural Model is based in the Clean Architecture and is the basis to add more resources like domain models and repositories.
-You can use this as a template to create your own commands. 
-Please notice that ALL your commands must be prefixed with the name of your Spell (golangspell-txtdb). It will avoid name colision with the Spells from other authors 
-Args:
-name: Your name (required) to be added to the Hello!. Example: Elvis"
-
-Syntax: 
-golangspell golangspell-txtdb-hello [name]
-`,
-				ValidArgs: []string{"name"},
-			},
 			"txtdbdomain": &domain.Command{
 				Name:             "txtdbdomain",
 				ShortDescription: "The txtdbdomain create a new domain structure",
@@ -63,6 +48,20 @@ golangspell txtdbdomain DomainEntity
 Examples:
 golangspell txtdbdomain Group`,
 				ValidArgs: []string{"DomainEntity"},
+			},
+			"txtdbsort": &domain.Command{
+				Name:             "txtdbsort",
+				ShortDescription: "The txtdbsort create a sort in repository for giving DomainEnitty",
+				LongDescription: `Args:
+DomainEntity: the entity Name
+Field: the field that will receive sort logic
+
+Syntax: 
+golangspell txtdbsort DomainEntity Field
+
+Examples:
+golangspell txtdbsort Group Name`,
+				ValidArgs: []string{"DomainEntity","Field"},
 			},
 		},
 	}
