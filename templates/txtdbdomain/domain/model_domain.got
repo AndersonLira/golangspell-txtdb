@@ -1,5 +1,12 @@
 package domain
 
+import (
+    "time"
+)
+
+//{{.DomainEntity}} represents a model
 type {{.DomainEntity}} struct {
     ID string `json:"id"`
+    CreatedAt time.Time `json:"dateCreated,omitempty"`
+    UpdatedAt time.Time `json:"dateUpdated,omitempty"`
 }

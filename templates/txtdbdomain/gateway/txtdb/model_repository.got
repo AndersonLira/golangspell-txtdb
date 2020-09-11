@@ -5,6 +5,7 @@ import (
 	"errors"
     "fmt"
 	"log"
+	"time"
 
     "{{.ModuleName}}/domain"
 	"github.com/andersonlira/goutils/io"
@@ -37,6 +38,7 @@ func Get{{.DomainEntity}}ByID(ID string) (domain.{{.DomainEntity}}, error) {
 func Save{{.DomainEntity}}(it domain.{{.DomainEntity}}) domain.{{.DomainEntity}} {
 	list := Get{{.DomainEntity}}List()
 	it.ID = str.NewUUID()
+	it.CreatedAt = time.Now()
 	list = append(list, it)
 	write{{.DomainEntity}}(list)
 	return it
@@ -49,6 +51,7 @@ func Update{{.DomainEntity}}(ID string, it domain.{{.DomainEntity}}) domain.{{.D
 		if(list[idx].ID == ID){
 			list[idx] = it
 			list[idx].ID = ID
+			list[idx].UpdateAt = time.Now()
 			write{{.DomainEntity}}(list)
 			return list[idx]
 		}
