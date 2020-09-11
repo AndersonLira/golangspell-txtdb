@@ -27,10 +27,16 @@ func RendertxtdbdomainTemplate(args []string) error {
 	if err != nil {
 		return err
 	}
-	return renameFile(domainEntity)
+	err = renameFiles(domainEntity)
+
+	if err != nil {
+		return err
+	}
+
+	return addRoutes(domainEntity)
 }
 
-func renameFile(domainEntity string) error {
+func renameFiles(domainEntity string) error {
 	currentPath, err := os.Getwd()
 	if err != nil {
 		return err
@@ -42,12 +48,13 @@ func renameFile(domainEntity string) error {
 	return os.Rename(sourcePath, destinationPath)
 }
 
-func addRoutes(domainEntity string ) {
+func addRoutes(domainEntity string ) error{
 	coder, err := recode.MakeCoder("./controller/router.go")
 	if err != nil {
-		return
+		return err
 	}
-	coder.AddAfterLine("func MapRoutes(e *echo.Echo)","g.GET(","\tg.GET(\"/health\", CheckHealth)")
+	routeGetAll = fmt.Sprintf("\tg.GET(\"%s\", Get%sList",strcase.ToCamel(domainEntity),domainEntity)
+	coder.AddAfterLine("func MapRoutes(e *echo.Echo)","g.GET(",routeGetAll)
 	io.WriteFile("./controller/router.go",coder.NewCodeContent())
 }
 
