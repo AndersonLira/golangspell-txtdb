@@ -3,6 +3,7 @@ module github.com/andersonlira/golangspell-txtdb
 go 1.14
 
 require (
+	github.com/andersonlira/goutils v0.0.0-20200911100702-4061cd613fa6
 	github.com/golangspell/golangspell v0.4.0
 	github.com/iancoleman/strcase v0.1.1
 	github.com/spf13/cobra v1.0.0

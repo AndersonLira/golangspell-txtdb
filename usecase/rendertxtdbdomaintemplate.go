@@ -46,6 +46,10 @@ func renameFiles(domainEntity string) error {
 	directory := filepath.Dir(sourcePath)
 	destinationPath := fmt.Sprintf("%s%smodel_%s.go", directory, toolconfig.PlatformSeparator, strcase.ToSnake(domainEntity))
 
+	if err := os.Rename(sourcePath, destinationPath); err != nil {
+		return err
+	}
+
 
 	sourcePath = fmt.Sprintf("%s%scontroller%smodel_controller.go",currentPath , toolconfig.PlatformSeparator, toolconfig.PlatformSeparator)
 	directory = filepath.Dir(sourcePath)
