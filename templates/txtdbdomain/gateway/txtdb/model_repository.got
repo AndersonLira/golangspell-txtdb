@@ -51,7 +51,7 @@ func Update{{.DomainEntity}}(ID string, it domain.{{.DomainEntity}}) domain.{{.D
 		if(list[idx].ID == ID){
 			list[idx] = it
 			list[idx].ID = ID
-			list[idx].UpdateAt = time.Now()
+			list[idx].UpdatedAt = time.Now()
 			write{{.DomainEntity}}(list)
 			return list[idx]
 		}

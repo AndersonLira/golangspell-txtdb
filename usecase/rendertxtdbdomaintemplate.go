@@ -75,7 +75,7 @@ func addRoutes(domainEntity string ) error{
 	routeGetByID := fmt.Sprintf("\tg.GET(\"/%s/:id\", Get%sByID)",strcase.ToLowerCamel(domainEntity),domainEntity)
 	routeSave := fmt.Sprintf("\tg.POST(\"/%s\", Save%s)",strcase.ToLowerCamel(domainEntity),domainEntity)
 	routeUpdate := fmt.Sprintf("\tg.PUT(\"/%s/:id\", Update%s)",strcase.ToLowerCamel(domainEntity),domainEntity)
-	routeDelete := fmt.Sprintf("\tg.PUT(\"/%s/:id\", Delete%s)",strcase.ToLowerCamel(domainEntity),domainEntity)
+	routeDelete := fmt.Sprintf("\tg.DELETE(\"/%s/:id\", Delete%s)",strcase.ToLowerCamel(domainEntity),domainEntity)
 	
 	coder.AddAfterLine("func MapRoutes(e *echo.Echo)","g.GET(",routeGetAll, routeGetByID,routeSave,routeUpdate,routeDelete)
 	io.WriteFile("./controller/router.go",coder.NewCodeContent())
