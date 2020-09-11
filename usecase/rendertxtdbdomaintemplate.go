@@ -41,10 +41,24 @@ func renameFiles(domainEntity string) error {
 	if err != nil {
 		return err
 	}
+
 	sourcePath := fmt.Sprintf("%s%sdomain%smodel_domain.go",currentPath , toolconfig.PlatformSeparator, toolconfig.PlatformSeparator)
 	directory := filepath.Dir(sourcePath)
 	destinationPath := fmt.Sprintf("%s%smodel_%s.go", directory, toolconfig.PlatformSeparator, strcase.ToSnake(domainEntity))
-	
+
+
+	sourcePath = fmt.Sprintf("%s%scontroller%smodel_controller.go",currentPath , toolconfig.PlatformSeparator, toolconfig.PlatformSeparator)
+	directory = filepath.Dir(sourcePath)
+	destinationPath = fmt.Sprintf("%s%s%s_controller.go", directory, toolconfig.PlatformSeparator, strcase.ToSnake(domainEntity))
+
+	if err := os.Rename(sourcePath, destinationPath); err != nil {
+		return err
+	}
+
+	sourcePath = fmt.Sprintf("%s%sgateway/txtdb/%smodel_repository.go",currentPath , toolconfig.PlatformSeparator, toolconfig.PlatformSeparator)
+	directory = filepath.Dir(sourcePath)
+	destinationPath = fmt.Sprintf("%s%s%s_repository.go", directory, toolconfig.PlatformSeparator, strcase.ToSnake(domainEntity))
+
 	return os.Rename(sourcePath, destinationPath)
 }
 
@@ -53,8 +67,9 @@ func addRoutes(domainEntity string ) error{
 	if err != nil {
 		return err
 	}
-	routeGetAll := fmt.Sprintf("\tg.GET(\"%s\", Get%sList",strcase.ToCamel(domainEntity),domainEntity)
-	coder.AddAfterLine("func MapRoutes(e *echo.Echo)","g.GET(",routeGetAll)
+	routeGetAll := fmt.Sprintf("\tg.GET(\"/%s\", Get%sList)",strcase.ToLowerCamel(domainEntity),domainEntity)
+	routeGetByID := fmt.Sprintf("\tg.GET(\"/%s/:id\", Get%sByID)",strcase.ToLowerCamel(domainEntity),domainEntity)
+	coder.AddAfterLine("func MapRoutes(e *echo.Echo)","g.GET(",routeGetAll, routeGetByID)
 	io.WriteFile("./controller/router.go",coder.NewCodeContent())
 	return nil
 }
