@@ -53,8 +53,9 @@ func addRoutes(domainEntity string ) error{
 	if err != nil {
 		return err
 	}
-	routeGetAll = fmt.Sprintf("\tg.GET(\"%s\", Get%sList",strcase.ToCamel(domainEntity),domainEntity)
+	routeGetAll := fmt.Sprintf("\tg.GET(\"%s\", Get%sList",strcase.ToCamel(domainEntity),domainEntity)
 	coder.AddAfterLine("func MapRoutes(e *echo.Echo)","g.GET(",routeGetAll)
 	io.WriteFile("./controller/router.go",coder.NewCodeContent())
+	return nil
 }
 
