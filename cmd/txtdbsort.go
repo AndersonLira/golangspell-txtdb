@@ -14,15 +14,16 @@ func init() {
 func runtxtdbsort(cmd *cobra.Command, args []string) {
 	// Example on how to deal when the expected arguments were not provided
 	if len(args) != 2 {
-		fmt.Println(`The command txtdbsort requires 2 arguments
+		fmt.Println(`The command txtdbsort requires 2 or 3 arguments
 		Args:
 		DomainEntity: the domain that will receive sort feature
 		Field: the field that will be used to sort. 
+		Desc [optional]: sort is desc mode if value = true. Default false
 		Syntax: 
-		golangspell txtdbsort DomainEntity Field
+		golangspell txtdbsort DomainEntity Field [Desc]
 		
 		Examples:
-		golangspell txtdbsort Group Name`)
+		golangspell txtdbsort Group Name <true>`)
 		return
 	}
 

@@ -55,12 +55,12 @@ golangspell txtdbdomain Group`,
 				LongDescription: `Args:
 DomainEntity: the entity Name
 Field: the field that will receive sort logic
-
+Desc [optional]: sort is desc mode if value = true. Default false
 Syntax: 
-golangspell txtdbsort DomainEntity Field
+golangspell txtdbsort DomainEntity Field [Desc]
 
 Examples:
-golangspell txtdbsort Group Name`,
+golangspell txtdbsort Group Name <true>``,
 				ValidArgs: []string{"DomainEntity","Field"},
 			},
 		},
