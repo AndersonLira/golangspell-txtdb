@@ -13,7 +13,7 @@ func init() {
 
 func runtxtdbsort(cmd *cobra.Command, args []string) {
 	// Example on how to deal when the expected arguments were not provided
-	if len(args) != 2 {
+	if len(args) != 2 && len(args) != 3 {
 		fmt.Println(`The command txtdbsort requires 2 or 3 arguments
 		Args:
 		DomainEntity: the domain that will receive sort feature
