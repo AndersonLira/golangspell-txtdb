@@ -60,7 +60,7 @@ Syntax:
 golangspell txtdbsort DomainEntity Field [Desc]
 
 Examples:
-golangspell txtdbsort Group Name <true>``,
+golangspell txtdbsort Group Name <true>`,
 				ValidArgs: []string{"DomainEntity","Field"},
 			},
 		},
