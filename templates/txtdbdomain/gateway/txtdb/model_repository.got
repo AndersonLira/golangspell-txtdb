@@ -21,7 +21,7 @@ func Get{{.DomainEntity}}List() []domain.{{.DomainEntity}} {
 	return list
 }
 
-//Get{{.DomainEntity}}ByID return all items 
+//Get{{.DomainEntity}}ByID return item by its id
 func Get{{.DomainEntity}}ByID(ID string) (domain.{{.DomainEntity}}, error) {
 	list := Get{{.DomainEntity}}List()
 	for idx, _ := range list {
