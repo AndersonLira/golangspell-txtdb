@@ -14,6 +14,10 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
+const funcDefaultOptions = `(c echo.Context) error {
+		return c.JSON(http.StatusNoContent,nil)
+	}`
+
 //RendertxtdbdomainTemplate renders the templates defined to the txtdbdomain command with the proper variables
 func RendertxtdbdomainTemplate(args []string) error {
 	spell := appcontext.Current.Get(appcontext.Spell).(tooldomain.Spell)
@@ -71,13 +75,14 @@ func addRoutes(domainEntity string ) error{
 	if err != nil {
 		return err
 	}
+	routeOptions := fmt.Sprintf("\tg.OPTIONS(\"/%s\", %s)",strcase.ToLowerCamel(domainEntity),funcDefaultOptions)
 	routeGetAll := fmt.Sprintf("\tg.GET(\"/%s\", Get%sList)",strcase.ToLowerCamel(domainEntity),domainEntity)
 	routeGetByID := fmt.Sprintf("\tg.GET(\"/%s/:id\", Get%sByID)",strcase.ToLowerCamel(domainEntity),domainEntity)
 	routeSave := fmt.Sprintf("\tg.POST(\"/%s\", Save%s)",strcase.ToLowerCamel(domainEntity),domainEntity)
 	routeUpdate := fmt.Sprintf("\tg.PUT(\"/%s/:id\", Update%s)",strcase.ToLowerCamel(domainEntity),domainEntity)
 	routeDelete := fmt.Sprintf("\tg.DELETE(\"/%s/:id\", Delete%s)",strcase.ToLowerCamel(domainEntity),domainEntity)
 	
-	coder.AddAfterLine("func MapRoutes(e *echo.Echo)","g.GET(",routeGetAll, routeGetByID,routeSave,routeUpdate,routeDelete)
+	coder.AddAfterLine("func MapRoutes(e *echo.Echo)","g.GET(",routeOptions, routeGetAll, routeGetByID,routeSave,routeUpdate,routeDelete)
 	io.WriteFile("./controller/router.go",coder.NewCodeContent())
 	return nil
 }
